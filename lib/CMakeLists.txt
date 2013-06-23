@@ -24,11 +24,10 @@ include(GrPlatform) #define LIB_SUFFIX
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
-
 list(APPEND afsk_sources
     afsk1200_impl.cc
-    hdlc_impl.cc
-)
+    ax25decode_impl.cc
+    aprs2inet_impl.cc )
 
 add_library(gnuradio-afsk SHARED ${afsk_sources})
 target_link_libraries(gnuradio-afsk ${Boost_LIBRARIES}  ${GNURADIO_RUNTIME_LIBRARIES})

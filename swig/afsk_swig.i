@@ -9,11 +9,15 @@
 
 %{
 #include "afsk/afsk1200.h"
-#include "afsk/hdlc.h"
+#include "afsk/ax25decode.h"
+#include "afsk/aprs2inet.h"
 %}
 
 
 %include "afsk/afsk1200.h"
 GR_SWIG_BLOCK_MAGIC2(afsk, afsk1200);
-%include "afsk/hdlc.h"
-GR_SWIG_BLOCK_MAGIC2(afsk, hdlc);
+%include "afsk/ax25decode.h"
+GR_SWIG_BLOCK_MAGIC2(afsk, ax25decode);
+
+%include "afsk/aprs2inet.h"
+GR_SWIG_BLOCK_MAGIC2(afsk, aprs2inet);

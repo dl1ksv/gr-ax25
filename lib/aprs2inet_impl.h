@@ -18,16 +18,17 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_AFSK_AFSK1200_IMPL_H
-#define INCLUDED_AFSK_AFSK1200_IMPL_H
+#ifndef INCLUDED_AFSK_APRS2INET_IMPL_H
+#define INCLUDED_AFSK_APRS2INET_IMPL_H
 
-#include <afsk/afsk1200.h>
+#include <afsk/aprs2inet.h>
 #include <boost/crc.hpp>
+#include <boost/cstdint.hpp>
 
 namespace gr {
   namespace afsk {
 
-    class afsk1200_impl : public afsk1200
+    class aprs2inet_impl : public aprs2inet
     {
      private:
       // decoder states
@@ -35,7 +36,6 @@ namespace gr {
                 unsigned int dcd_shreg;
                 unsigned int sphase;
                 unsigned int lasts;
-                unsigned int subsamp;
         } afsk12;
       // hdlc
       struct l2_state_hdlc {
@@ -48,51 +48,32 @@ namespace gr {
 
       // actual samplerate  of the decoder
       int d_sample_rate;
-      int d_corrlen;
       int d_sphaseinc;
 
-      float *corr_mark_i;
-      float *corr_mark_q;
-      float *corr_space_i;
-      float *corr_space_q;
+      int d_numchars;
+
+      char * out;
 
       int verbose_level;
       boost::crc_optimal<16,   0x1021, 0xFFFF, 0, true, true > crc_ccitt1;
-      char * out;
-      int d_numchars;
-
-      inline float mac(const float *a, const float *b, unsigned int size)
-      {
-              float sum = 0;
-              unsigned int i;
-
-              for (i = 0; i < size; i++)
-                      sum += (*a++) * (*b++);
-              return sum;
-      }
-
-      inline float fsqr(float f)
-      {
-              return f*f;
-      }
 
       void hdlc_rxbit(int bit);
-      void verbprintf(int verb_level, const char *fmt, ...);
-      void ax25_disp_packet(unsigned char *bp, unsigned int len);
-      void print_timestamp();
+
      public:
-      afsk1200_impl(int sample_rate,int debug_level);
-      ~afsk1200_impl();
+      aprs2inet_impl(int sample_rate, int debug_level);
+      ~aprs2inet_impl();
 
       // Where all the action really happens
-      int general_work (int noutput_items,
-                        gr_vector_int &ninput_items,
-                        gr_vector_const_void_star &input_items,
-                        gr_vector_void_star &output_items);
-   };
+ //     void forecast (int noutput_items, gr_vector_int &ninput_items_required);
+
+      int general_work(int noutput_items,
+		       gr_vector_int &ninput_items,
+		       gr_vector_const_void_star &input_items,
+		       gr_vector_void_star &output_items);
+    };
 
   } // namespace afsk
 } // namespace gr
 
-#endif /* INCLUDED_AFSK_AFSK1200_IMPL_H */
+#endif /* INCLUDED_AFSK_APRS2INET_IMPL_H */
 

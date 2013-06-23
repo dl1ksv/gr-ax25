@@ -16,8 +16,8 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
     afsk_afsk1200.xml
-    afsk_hdlc.xml DESTINATION share/gnuradio/grc/blocks
+    afsk_ax25decode.xml
+    afsk_aprs2inet.xml DESTINATION share/gnuradio/grc/blocks
 )

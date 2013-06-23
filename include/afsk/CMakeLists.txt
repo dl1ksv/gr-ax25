@@ -23,5 +23,6 @@
 install(FILES
     api.h
     afsk1200.h
-    hdlc.h DESTINATION include/afsk
+    ax25decode.h
+    aprs2inet.h DESTINATION include/afsk
 )

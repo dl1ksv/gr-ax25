@@ -1,18 +1,13 @@
+<?xml version="1.0"?>
 <block>
-  <name>Hdlc</name>
-  <key>afsk_hdlc</key>
+  <name>aprs2inet</name>
+  <key>afsk_aprs2inet</key>
   <category>AFSK</category>
   <import>import afsk</import>
-  <make>afsk.hdlc($sample_rate, $subsample, $debug_level)</make>
+  <make>afsk.aprs2inet($sample_rate, $debug_level)</make>
   <param>
     <name>Sample_rate</name>
     <key>sample_rate</key>
-    <type>int</type>
-  </param>
-  <param>
-    <name>Subsample</name>
-    <key>subsample</key>
-    <value>2</value>
     <type>int</type>
   </param>
   <param>
