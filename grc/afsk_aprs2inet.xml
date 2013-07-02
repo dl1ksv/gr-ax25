@@ -13,7 +13,7 @@
   <param>
     <name>Debug_level</name>
     <key>debug_level</key>
-    <value>5</value>
+    <value>4</value>
     <type>int</type>
   </param>
   <sink>

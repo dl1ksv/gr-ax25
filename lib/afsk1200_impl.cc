@@ -48,7 +48,7 @@ afsk1200::make(int sample_rate,int debug_level)
      */
 afsk1200_impl::afsk1200_impl(int sample_rate, int debug_level)
     : gr::block("afsk1200",
-                    gr::io_signature::make(2, 2, sizeof (float)),
+                    gr::io_signature::make(1, 1, sizeof (float)),
                     gr::io_signature::make(1, 1, sizeof(char)))
 {
     float f;
@@ -106,8 +106,7 @@ afsk1200_impl::general_work (int noutput_items,
     unsigned char curbit;
     int length;
 
-    const float *mark = (const float *) input_items[0];
-    const float *space= (const float *) input_items[1];
+    const float *in = (const float *) input_items[0];
     out = (char *) output_items[0];
     // Do <+signal processing+>
     length=noutput_items;
@@ -126,10 +125,10 @@ afsk1200_impl::general_work (int noutput_items,
     for (; length >= SUBSAMP; length -= SUBSAMP) {
         mark += SUBSAMP;
         space += SUBSAMP;
-        f = fsqr(mac(mark, corr_mark_i, d_corrlen)) +
-                fsqr(mac(mark, corr_mark_q, d_corrlen)) -
-                fsqr(mac(space, corr_space_i,d_corrlen)) -
-                fsqr(mac(space, corr_space_q,d_corrlen));
+        f = fsqr(mac(in, corr_mark_i, d_corrlen)) +
+                fsqr(mac(in, corr_mark_q, d_corrlen)) -
+                fsqr(mac(in, corr_space_i,d_corrlen)) -
+                fsqr(mac(in, corr_space_q,d_corrlen));
         afsk12.dcd_shreg <<= 1;
         afsk12.dcd_shreg |= (f > 0);
         verbprintf(10, "%c", '0'+(afsk12.dcd_shreg & 1));
