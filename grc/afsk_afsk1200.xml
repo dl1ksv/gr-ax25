@@ -12,14 +12,11 @@
   <param>
     <name>Debuglevel</name>
     <key>debug_level</key>
+    <value>4</value>
     <type>int</type>
   </param>
   <sink>
-    <name>Mark</name>
-    <type>float</type>
-  </sink>
-  <sink>
-    <name>Space</name>
+    <name>in</name>
     <type>float</type>
   </sink>
   <source>

@@ -117,14 +117,12 @@ afsk1200_impl::general_work (int noutput_items,
             afsk12.subsamp += length;
             return length;
         }
-        mark  += numfill;
-        space += numfill;
+        in += numfill;
         length -= numfill;
         afsk12.subsamp = 0;
     }
     for (; length >= SUBSAMP; length -= SUBSAMP) {
-        mark += SUBSAMP;
-        space += SUBSAMP;
+        in += SUBSAMP;
         f = fsqr(mac(in, corr_mark_i, d_corrlen)) +
                 fsqr(mac(in, corr_mark_q, d_corrlen)) -
                 fsqr(mac(in, corr_space_i,d_corrlen)) -
