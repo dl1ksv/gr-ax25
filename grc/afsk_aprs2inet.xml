@@ -2,7 +2,7 @@
 <block>
   <name>aprs2inet</name>
   <key>afsk_aprs2inet</key>
-  <category>AFSK</category>
+  <category>AX.25</category>
   <import>import afsk</import>
   <make>afsk.aprs2inet($sample_rate, $debug_level)</make>
   <param>

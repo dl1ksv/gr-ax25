@@ -1,7 +1,7 @@
 <block>
   <name>AX25decode</name>
   <key>afsk_ax25decode</key>
-  <category>AFSK</category>
+  <category>AX.25</category>
   <import>import afsk</import>
   <make>afsk.ax25decode($sample_rate, $debug_level)</make>
   <param>

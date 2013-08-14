@@ -1,10 +1,14 @@
-gr-afsk is a small package to deal with ax.25 packet data.
+gr-ax25 is a small package to deal with ax.25 packet data.
 
-At the moment it contains four blocks
+At the moment it contains three blocks
 
 afsk1200  - a variant of the multimon demod_afsk12 decoder adopted to gnuradio (demodulation and decoding)
-aprs2inet - assembles an ax.25 frame from an bitstream and converts the frame to internet-format
-ax25decode -  assembles an ax.25 frame from an bitstream and decodes the  frame ( no demodulation )
+ The original code requires the signal to be sampled at 22050 Hz. In this variant the samplerate can be set and works at least up t0 48000 Hz.
+
+aprs2inet - assembles an ax.25 frame from an bitstream and converts the frame to internet-format.
+ These frames can be fed into xastir via a tcp connection.
+
+ax25decode -  assembles an ax.25 frame from an bitstream and decodes the  frame
 
 1. Dependencies:
 
@@ -13,7 +17,7 @@ ax25decode -  assembles an ax.25 frame from an bitstream and decodes the  frame 
 
 2. Installation
 
-get the latest code from https://github.com/dl1ksv/gr-afsk
+get the latest code from https://github.com/dl1ksv/gr-ax25
 
 The build process is cmake based. So change to the code directory.
 There
@@ -24,9 +28,16 @@ $make
 $su
 $make install
 
-After that you'll find a label AFSK in grc.
+After that you'll find a label AX.25 in grc.
 
 3. Example
+
+The example in the apps directory can receive aprs data (144.8 Mhz), or packet radio from the ISS.
+To run the aprs example you have to run the detectmarkspace block and install it in your grc, first.
+If you wish to send the decoded data to xastir you have to enable the path to the tcp sink.
+If the tcp sink is enable the flowgraph starts running after a client has connected to the tcp sink.
+
+The example enables the comparison of different afsk decoder and can serve as basis for testing different decoders.
 
 Here is a small example output recorded from ISS ( Timestamp is MESZ )
 
@@ -49,6 +60,9 @@ AFSK1200: fm HB9SKA-0 to APRS-0 via RS0ISS-0 UI^ pid=F0
 AFSK1200: fm DL2YED-6 to APRS-0 via RS0ISS-0 UI  pid=F0
 =5138.83N/00711.95E-73 via ISS de Ralph {UISS53}
 
-4. Credits
+4. To do
+Documentation
+
+5. Credits
 
 The original code is taken from multimon by Thomas Sailer, HB9JNX

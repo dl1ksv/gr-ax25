@@ -1,2 +1,3 @@
 build*/
-apps/
+apps/*.py
+apps/*.txt
