@@ -32,7 +32,7 @@ After that you'll find a label AX.25 in grc.
 
 3. Example
 
-The example in the apps directory can receive aprs data (144.8 Mhz), or packet radio from the ISS.
+The example in the apps directory can receive aprs data (144.8 Mhz) or packet radio from the ISS using the fcdproplus.
 To run the aprs example you have to run the detectmarkspace block and install it in your grc, first.
 If you wish to send the decoded data to xastir you have to enable the path to the tcp sink.
 If the tcp sink is enable the flowgraph starts running after a client has connected to the tcp sink.
