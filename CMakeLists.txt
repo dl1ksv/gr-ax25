@@ -82,8 +82,9 @@ set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
 ########################################################################
 # Find gnuradio build dependencies
 ########################################################################
+set(GR_REQUIRED_COMPONENTS RUNTIME )
+find_package(Gnuradio "3.7")
 
-find_package(GnuradioRuntime)
 if(NOT GNURADIO_RUNTIME_FOUND)
     message(FATAL_ERROR "GnuRadio Runtime required to compile afsk")
 endif()
