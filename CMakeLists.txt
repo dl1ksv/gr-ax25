@@ -89,6 +89,8 @@ if(NOT GNURADIO_RUNTIME_FOUND)
     message(FATAL_ERROR "GnuRadio Runtime required to compile afsk")
 endif()
 
+find_package(Doxygen)
+
 ########################################################################
 # Setup the include and linker paths
 ########################################################################

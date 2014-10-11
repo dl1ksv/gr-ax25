@@ -31,7 +31,22 @@ list(APPEND afsk_sources
 
 add_library(gnuradio-afsk SHARED ${afsk_sources})
 target_link_libraries(gnuradio-afsk ${Boost_LIBRARIES}  ${GNURADIO_RUNTIME_LIBRARIES})
+if(APPLE)
+  # for some reason on OSX, linking to gnuradio-runtime also requires
+  # linking with gnuradio-pmt; this does not seem necessary on
+  # Linux.
+  target_link_libraries(gnuradio-afsk
+		      ${GNURADIO_PMT_LIBRARIES})
+  # set install_name self-id correctly
+  SET_TARGET_PROPERTIES(gnuradio-afsk PROPERTIES
+			        INSTALL_NAME_DIR
+				"${CMAKE_INSTALL_PREFIX}/${GR_LIBRARY_DIR}"
+				  )
+endif()
+
 set_target_properties(gnuradio-afsk PROPERTIES DEFINE_SYMBOL "gnuradio_afsk_EXPORTS")
+set_target_properties(gnuradio-afsk PROPERTIES SOVERSION 0)
+set_target_properties(gnuradio-afsk PROPERTIES VERSION 0.0.0)
 
 ########################################################################
 # Install built library files
