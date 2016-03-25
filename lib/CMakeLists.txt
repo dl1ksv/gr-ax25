@@ -21,6 +21,7 @@
 # Setup library
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
+include(GrMiscUtils)
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
@@ -35,26 +36,13 @@ if(APPLE)
   # for some reason on OSX, linking to gnuradio-runtime also requires
   # linking with gnuradio-pmt; this does not seem necessary on
   # Linux.
-  target_link_libraries(gnuradio-afsk
-		      ${GNURADIO_PMT_LIBRARIES})
+  target_link_libraries(gnuradio-afsk ${GNURADIO_PMT_LIBRARIES})
   # set install_name self-id correctly
-  SET_TARGET_PROPERTIES(gnuradio-afsk PROPERTIES
-			        INSTALL_NAME_DIR
+  SET_TARGET_PROPERTIES(gnuradio-afsk PROPERTIES INSTALL_NAME_DIR
 				"${CMAKE_INSTALL_PREFIX}/${GR_LIBRARY_DIR}"
-				  )
+  )
 endif()
 
 set_target_properties(gnuradio-afsk PROPERTIES DEFINE_SYMBOL "gnuradio_afsk_EXPORTS")
-set_target_properties(gnuradio-afsk PROPERTIES SOVERSION 0)
-set_target_properties(gnuradio-afsk PROPERTIES VERSION 0.0.0)
-
-########################################################################
-# Install built library files
-########################################################################
-install(TARGETS gnuradio-afsk
-    LIBRARY DESTINATION lib${LIB_SUFFIX} # .so/.dylib file
-    ARCHIVE DESTINATION lib${LIB_SUFFIX} # .lib file
-    RUNTIME DESTINATION bin              # .dll file
-)
-
+GR_LIBRARY_FOO(gnuradio-afsk)
 

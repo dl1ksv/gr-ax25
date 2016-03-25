@@ -21,7 +21,16 @@
 ########################################################################
 # Project setup
 ########################################################################
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
+
+########################################################################
+#
+# First look in the install directory for package config of gnuradio
+#
+########################################################################
+set( ENV{PKG_CONFIG_PATH}
+	"${CMAKE_INSTALL_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}")
+
 project(gr-afsk CXX C)
 
 #select the release build type by default to get optimization flags
@@ -30,8 +39,6 @@ if(NOT CMAKE_BUILD_TYPE)
    message(STATUS "Build type not specified: defaulting to release.")
 endif(NOT CMAKE_BUILD_TYPE)
 set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "")
-
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 ########################################################################
 # Compiler specific setup
@@ -63,6 +70,48 @@ if(NOT Boost_FOUND)
 endif()
 
 ########################################################################
+# Find gnuradio build dependencies
+########################################################################
+set(GR_REQUIRED_COMPONENTS RUNTIME )
+########################################################################
+# Make sure to find the appropriate gnuradio installition if more than
+# one installation of gnuradio exists
+########################################################################
+find_package(Gnuradio "3.7" REQUIRED PATHS ${CMAKE_INSTALL_PREFIX}
+	NO_DEFAULT_PATH)
+
+if(NOT GNURADIO_RUNTIME_FOUND)
+    message(FATAL_ERROR "GnuRadio Runtime required to compile afsk")
+endif()
+########################################################################
+#
+# set search path for cmake modules to OOT, Gnuradio
+#
+########################################################################
+set( CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
+include(FindGnuradioModules)
+
+if(${GNURADIO_MODULE_DIRECTORY} STREQUAL "GNURADIO_MODULE_DIRECTORY-NOTFOUND")
+  message(FATAL_ERROR "Cannot find gnuradio cmake Modules directory")
+else()
+  message(STATUS "Modules found in ${GNURADIO_MODULE_DIRECTORY}")
+endif() 
+list(APPEND CMAKE_MODULE_PATH "${GNURADIO_MODULE_DIRECTORY}" )
+
+
+########################################################################
+#
+# setup version info
+#
+########################################################################
+
+set(VERSION_INFO_MAJOR_VERSION 3)
+set(VERSION_INFO_API_COMPAT    7)
+set(VERSION_INFO_MINOR_VERSION 2)
+set(VERSION_INFO_MAINT_VERSION 0)
+include(GrVersion) #setup version info
+
+########################################################################
 # Install directories
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
@@ -78,6 +127,15 @@ set(GR_PKG_CONF_DIR     ${GR_CONF_DIR}/${CMAKE_PROJECT_NAME}/conf.d)
 set(GR_LIBEXEC_DIR      libexec)
 set(GR_PKG_LIBEXEC_DIR  ${GR_LIBEXEC_DIR}/${CMAKE_PROJECT_NAME})
 set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
+
+find_package(SWIG)
+
+if(NOT SWIG_FOUND)
+  message(FATAL_ERROR "Swig required to build fcdproplus")
+else()    
+  message(STATUS "Swig version ${SWIG_VERSION} found")
+endif()
+find_package(Doxygen)
 
 ########################################################################
 # On Apple only, set install name and use rpath correctly, if not already set
@@ -98,18 +156,6 @@ if(APPLE)
            BOOL "Do Build Using Library Install RPath" FORCE)
    endif(NOT CMAKE_BUILD_WITH_INSTALL_RPATH)
 endif(APPLE)
-
-########################################################################
-# Find gnuradio build dependencies
-########################################################################
-set(GR_REQUIRED_COMPONENTS RUNTIME )
-find_package(Gnuradio "3.7")
-
-if(NOT GNURADIO_RUNTIME_FOUND)
-    message(FATAL_ERROR "GnuRadio Runtime required to compile afsk")
-endif()
-
-find_package(Doxygen)
 
 ########################################################################
 # Setup the include and linker paths
@@ -142,6 +188,24 @@ add_custom_target(uninstall
 )
 
 ########################################################################
+# Create Pkg Config File
+########################################################################
+# fake gnuradio cpack behavior as long as we don't use it directly
+set(CPACK_PACKAGE_NAME "gnuradio-ax25")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "GNU Radio block to  decode ax25 packets ")
+set(CPACK_PACKAGE_VERSION ${VERSION})
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/gnuradio-ax25.pc.in
+    ${CMAKE_CURRENT_BINARY_DIR}/gnuradio-ax25.pc @ONLY)
+
+install(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/gnuradio-ax25.pc
+    DESTINATION ${GR_LIBRARY_DIR}/pkgconfig
+    COMPONENT "ax25"
+ )
+
+########################################################################
 # Add subdirectories
 ########################################################################
 add_subdirectory(include/afsk)
@@ -151,3 +215,15 @@ add_subdirectory(python)
 add_subdirectory(grc)
 add_subdirectory(apps)
 add_subdirectory(docs)
+
+########################################################################
+# Print Summary
+########################################################################
+MESSAGE(STATUS "================ Build Summary =========================")
+MESSAGE(STATUS "Building gr-ax25       : ${LIBVER} for ${CMAKE_SYSTEM_NAME} ")
+MESSAGE(STATUS "Building for gnuradio  : ${Gnuradio_VERSION}")
+MESSAGE(STATUS "Using CMAKE Module path: ${CMAKE_MODULE_PATH}" )
+MESSAGE(STATUS "GNURADIO INCLUDES IN   : ${GNURADIO_RUNTIME_INCLUDE_DIRS}")
+MESSAGE(STATUS "Using install prefix   : ${CMAKE_INSTALL_PREFIX}")
+MESSAGE(STATUS "========================================================")
+

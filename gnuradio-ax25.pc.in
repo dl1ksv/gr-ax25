@@ -1,0 +1,14 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@GR_LIBRARY_DIR@
+includedir=${prefix}/@GR_INCLUDE_DIR@/display
+
+Name: @CPACK_PACKAGE_NAME@
+Description: @CPACK_PACKAGE_DESCRIPTION_SUMMARY@
+URL: http://github.com/dl1ksv/
+Version: @CPACK_PACKAGE_VERSION@
+Requires: gnuradio >= 3.7
+
+Requires: gnuradio-runtime
+Libs: -L${libdir} -lgnuradio-afsk
+Cflags: -I${includedir}
