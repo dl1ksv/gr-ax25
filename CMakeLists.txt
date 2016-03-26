@@ -77,12 +77,13 @@ set(GR_REQUIRED_COMPONENTS RUNTIME )
 # Make sure to find the appropriate gnuradio installition if more than
 # one installation of gnuradio exists
 ########################################################################
-find_package(Gnuradio "3.7" REQUIRED PATHS ${CMAKE_INSTALL_PREFIX}
+find_package(Gnuradio "3.8" REQUIRED PATHS ${CMAKE_INSTALL_PREFIX}
 	NO_DEFAULT_PATH)
 
 if(NOT GNURADIO_RUNTIME_FOUND)
     message(FATAL_ERROR "GnuRadio Runtime required to compile afsk")
 endif()
+
 ########################################################################
 #
 # set search path for cmake modules to OOT, Gnuradio
@@ -128,6 +129,7 @@ set(GR_LIBEXEC_DIR      libexec)
 set(GR_PKG_LIBEXEC_DIR  ${GR_LIBEXEC_DIR}/${CMAKE_PROJECT_NAME})
 set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
 
+find_package(PythonLibs 2)
 find_package(SWIG)
 
 if(NOT SWIG_FOUND)
