@@ -77,7 +77,7 @@ set(GR_REQUIRED_COMPONENTS RUNTIME )
 # Make sure to find the appropriate gnuradio installition if more than
 # one installation of gnuradio exists
 ########################################################################
-find_package(Gnuradio "3.8" REQUIRED PATHS ${CMAKE_INSTALL_PREFIX}
+find_package(Gnuradio "3.7" REQUIRED PATHS ${CMAKE_INSTALL_PREFIX}
 	NO_DEFAULT_PATH)
 
 if(NOT GNURADIO_RUNTIME_FOUND)
