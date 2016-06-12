@@ -8,4 +8,5 @@ find_path(GNURADIO_MODULE_DIRECTORY
 	PATHS
           /usr/lib64/cmake/gnuradio
           /usr/lib/cmake/gnuradio
+	  /usr/lib/arm-linux-gnueabihf/cmake/gnuradio
 )
