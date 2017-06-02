@@ -3,7 +3,7 @@ gr-ax25 is a small package to deal with ax.25 packet data.
 At the moment it contains three blocks
 
 afsk1200  - a variant of the multimon demod_afsk12 decoder adopted to gnuradio (demodulation and decoding)
- The original code requires the signal to be sampled at 22050 Hz. In this variant the samplerate can be set and works at least up t0 48000 Hz.
+ The original code requires the signal to be sampled at 22050 Hz. In this variant the samplerate can be set and works at least up to 48000 Hz.
 
 aprs2inet - assembles an ax.25 frame from an bitstream and converts the frame to internet-format.
  These frames can be fed into xastir via a tcp connection.
@@ -13,6 +13,7 @@ ax25decode -  assembles an ax.25 frame from an bitstream and decodes the  frame
 1. Dependencies:
 
 - gnuradio
+- swig
 - gr-display ,only if you want to display the decoded text within the flow graph
 
 2. Installation
