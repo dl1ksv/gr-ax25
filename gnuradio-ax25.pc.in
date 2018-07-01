@@ -7,7 +7,6 @@ Name: @CPACK_PACKAGE_NAME@
 Description: @CPACK_PACKAGE_DESCRIPTION_SUMMARY@
 URL: http://github.com/dl1ksv/
 Version: @CPACK_PACKAGE_VERSION@
-Requires: gnuradio >= 3.7
 
 Requires: gnuradio-runtime
 Libs: -L${libdir} -lgnuradio-afsk
