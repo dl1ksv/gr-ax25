@@ -23,15 +23,25 @@
 include(GrPlatform) #define LIB_SUFFIX
 include(GrMiscUtils)
 
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND afsk_sources
     afsk1200_impl.cc
     ax25decode_impl.cc
     aprs2inet_impl.cc )
 
+set(afsk_sources "${afsk_sources}" PARENT_SCOPE)
+
 add_library(gnuradio-afsk SHARED ${afsk_sources})
-target_link_libraries(gnuradio-afsk ${Boost_LIBRARIES}  ${GNURADIO_RUNTIME_LIBRARIES})
+target_link_libraries(gnuradio-afsk PUBLIC
+    gnuradio::gnuradio-runtime ${Boost_LIBRARIES} )
+
+
+target_include_directories(gnuradio-afsk
+        PUBLIC
+        $<INSTALL_INTERFACE:include>
+       	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+	PRIVATE
+	${CMAKE_CURRENT_BINARY_DIR}
+       )
 if(APPLE)
   # for some reason on OSX, linking to gnuradio-runtime also requires
   # linking with gnuradio-pmt; this does not seem necessary on

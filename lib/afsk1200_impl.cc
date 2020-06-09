@@ -128,7 +128,10 @@ afsk1200_impl::general_work (int noutput_items,
                 fsqr(mac(in, corr_space_i,d_corrlen)) -
                 fsqr(mac(in, corr_space_q,d_corrlen));
         afsk12.dcd_shreg <<= 1;
-        afsk12.dcd_shreg |= (f > 0);
+        if ( f > 0 )
+           afsk12.dcd_shreg |= 1;
+
+//        afsk12.dcd_shreg |= (f > 0);
         verbprintf(10, "%c", '0'+(afsk12.dcd_shreg & 1));
         /*
              * check if transition

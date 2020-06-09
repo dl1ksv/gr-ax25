@@ -36,7 +36,11 @@ namespace gr {
     class AFSK_API ax25decode : virtual public block
     {
      public:
-      typedef boost::shared_ptr<ax25decode> sptr;
+#ifdef BOOST_SHARED_PTR
+  typedef boost::shared_ptr< ax25decode > sptr;
+#else
+  typedef std::shared_ptr< ax25decode > sptr;
+#endif
 
       /*!
        * \brief Return a shared_ptr to a new instance of afsk::ax25decode.

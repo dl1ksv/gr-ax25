@@ -1,0 +1,34 @@
+id: afsk_afsk1200  
+label: Afsk1200 Decoder
+
+category: '[Custom]/AX.25'
+
+parameters: 
+
+-   id: sample_rate # xml: param name
+    label: Sample Rate
+    dtype: int
+    default: 11025
+
+-   id: debug_level
+    label: Debug Level
+    dtype: int
+    default: 4
+
+inputs:
+-   domain: stream
+    label: in
+    dtype:  float
+
+outputs:
+-   domain: stream
+    label: out
+    dtype: byte
+
+templates:
+    imports: 
+        import afsk
+    make: |-
+        afsk.afsk1200(${sample_rate},${debug_level})
+
+file_format: 1    

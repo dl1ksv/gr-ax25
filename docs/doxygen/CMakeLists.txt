@@ -31,7 +31,7 @@ set(enable_latex_docs NO)
 set(enable_xml_docs YES)
 
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in
+    ${DOXY_FILE_PATH}/Doxyfile.in
     ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
 @ONLY)
 

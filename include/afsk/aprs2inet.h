@@ -36,7 +36,11 @@ namespace gr {
     class AFSK_API aprs2inet : virtual public gr::block
     {
      public:
-      typedef boost::shared_ptr<aprs2inet> sptr;
+#ifdef BOOST_SHARED_PTR
+  typedef boost::shared_ptr< aprs2inet > sptr;
+#else
+  typedef std::shared_ptr< aprs2inet > sptr;
+#endif
 
       /*!
        * \brief Return a shared_ptr to a new instance of afsk::aprs2inet.

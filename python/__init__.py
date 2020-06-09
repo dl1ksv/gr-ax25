@@ -31,9 +31,9 @@ try:
     from dl import RTLD_GLOBAL as _RTLD_GLOBAL
 except ImportError:
     try:
-	from DLFCN import RTLD_GLOBAL as _RTLD_GLOBAL
+        from DLFCN import RTLD_GLOBAL as _RTLD_GLOBAL
     except ImportError:
-	pass
+        pass
 
 if _RTLD_GLOBAL != 0:
     _dlopenflags = sys.getdlopenflags()
@@ -42,7 +42,7 @@ if _RTLD_GLOBAL != 0:
 
 
 # import swig generated symbols into the afsk namespace
-from afsk_swig import *
+from .afsk_swig import *
 
 # import any pure python here
 #
