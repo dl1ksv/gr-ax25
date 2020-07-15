@@ -36,7 +36,7 @@
 
 
 namespace gr {
-namespace afsk {
+namespace ax25 {
 afsk1200::sptr
 afsk1200::make(int sample_rate,int debug_level)
 {
@@ -107,7 +107,8 @@ afsk1200_impl::general_work (int noutput_items,
     int length;
 
     const float *in = (const float *) input_items[0];
-    out = (char *) output_items[0];
+    d_out = (char *) output_items[0];
+    gr::thread::scoped_lock lock(d_setlock);
     // Do <+signal processing+>
     length=noutput_items;
     d_numchars=0;
@@ -365,11 +366,11 @@ afsk1200_impl::verbprintf(int verb_level, const char *fmt, ...)
 
     va_start(args, fmt);
     if (verb_level <= verbose_level) {
-        vsprintf(out, fmt, args);
+        vsprintf(d_out, fmt, args);
     }
     va_end(args);
-    int length=strlen(out);
-    out +=length;
+    int length=strlen(d_out);
+    d_out +=length;
     d_numchars +=length;
 }
 void
@@ -379,10 +380,10 @@ afsk1200_impl::print_timestamp() {
       time_t     now = time(0);
       struct tm  tstruct;
       tstruct = *localtime(&now);
-      int numchars=strftime(out, 80, "%Y-%m-%d.%X", &tstruct);
-      out +=numchars;
-      *out = '\n';
-      out++;
+      int numchars=strftime(d_out, 80, "%Y-%m-%d.%X", &tstruct);
+      d_out +=numchars;
+      *d_out = '\n';
+      d_out++;
       d_numchars += numchars+1;
       }
     }

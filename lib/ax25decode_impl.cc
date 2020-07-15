@@ -34,7 +34,7 @@
 #define BAUD       1200
 
 namespace gr {
-namespace afsk {
+namespace ax25 {
 
     ax25decode::sptr
     ax25decode::make(int sample_rate, int debug_level)
@@ -75,7 +75,9 @@ namespace afsk {
       int i;
       unsigned char curbit;
       const float *bit = (const float *) input_items[0];
-      out = (char *) output_items[0];
+      d_out = (char *) output_items[0];
+
+      gr::thread::scoped_lock lock(d_setlock);
 
       d_numchars=0;
       for (i=0;i <noutput_items; i++) {
@@ -315,11 +317,11 @@ ax25decode_impl::verbprintf(int verb_level, const char *fmt, ...) {
 
     va_start(args, fmt);
     if (verb_level <= verbose_level) {
-        vsprintf(out, fmt,args);
+        vsprintf(d_out, fmt,args);
     }
     va_end(args);
-    int length=strlen(out);
-    out +=length;
+    int length=strlen(d_out);
+    d_out +=length;
     d_numchars +=length;
 }
 void
@@ -329,10 +331,10 @@ ax25decode_impl::print_timestamp() {
       time_t     now = time(0);
       struct tm  tstruct;
       tstruct = *localtime(&now);
-      int numchars=strftime(out, 80, "%Y-%m-%d.%X", &tstruct);
-      out +=numchars;
-      *out = '\n';
-      out++;
+      int numchars=strftime(d_out, 80, "%Y-%m-%d.%X", &tstruct);
+      d_out +=numchars;
+      *d_out = '\n';
+      d_out++;
       d_numchars += numchars+1;
       }
     }

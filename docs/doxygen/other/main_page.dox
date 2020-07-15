@@ -1,8 +1,8 @@
 /*! \mainpage
 
-Welcome to the GNU Radio AFSK Block
+Welcome to the GNU Radio AX25 Block
 
-This is the intro page for the Doxygen manual generated for the AFSK
+This is the intro page for the Doxygen manual generated for the AX25
 block (docs/doxygen/other/main_page.dox). Edit it to add more detailed
 documentation about the new GNU Radio modules contained in this
 project.

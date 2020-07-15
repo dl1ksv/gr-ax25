@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /* 
- * Copyright 2013 <+YOU OR YOUR COMPANY+>.
+ * Copyright 2013 Volker Schroer, DL1KSV.
  * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,38 +19,38 @@
  */
 
 
-#ifndef INCLUDED_AFSK_APRS2INET_H
-#define INCLUDED_AFSK_APRS2INET_H
+#ifndef INCLUDED_AFSK_AFSK1200_H
+#define INCLUDED_AFSK_AFSK1200_H
 
-#include <afsk/api.h>
+#include <ax25/api.h>
 #include <gnuradio/block.h>
 
 namespace gr {
-  namespace afsk {
+  namespace ax25 {
 
     /*!
      * \brief <+description of block+>
-     * \ingroup afsk
+     * \ingroup ax25
      *
      */
-    class AFSK_API aprs2inet : virtual public gr::block
+    class AFSK_API afsk1200 : virtual public block
     {
      public:
-      typedef boost::shared_ptr<aprs2inet> sptr;
+      typedef std::shared_ptr<afsk1200> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of afsk::aprs2inet.
+       * \brief Return a shared_ptr to a new instance of afsk::afsk1200.
        *
-       * To avoid accidental use of raw pointers, afsk::aprs2inet's
+       * To avoid accidental use of raw pointers, afsk::afsk1200's
        * constructor is in a private implementation
-       * class. afsk::aprs2inet::make is the public interface for
+       * class. afsk::afsk1200::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int sample_rate,int debug_level);
+      static sptr make(int sample_rate,int debug_level=2);
     };
 
   } // namespace afsk
 } // namespace gr
 
-#endif /* INCLUDED_AFSK_aprs2inet_H */
+#endif /* INCLUDED_AFSK_AFSK1200_H */
 

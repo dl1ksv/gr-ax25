@@ -21,13 +21,13 @@
 #ifndef INCLUDED_AFSK_AX25DECODE_IMPL_H
 #define INCLUDED_AFSK_AX25DECODE_IMPL_H
 
-#include <afsk/ax25decode.h>
+#include <ax25/ax25decode.h>
 
 #include <boost/crc.hpp>      // for boost::crc_basic, boost::augmented_crc
 #include <boost/cstdint.hpp>  // for boost::uint16_t
 
 namespace gr {
-  namespace afsk {
+  namespace ax25 {
 
     class ax25decode_impl : public ax25decode
     {
@@ -53,7 +53,7 @@ namespace gr {
 
         int d_numchars;
 
-        char * out;
+        char * d_out;
 
         int verbose_level;
         boost::crc_optimal<16,   0x1021, 0xFFFF, 0, true, true > crc_ccitt1;

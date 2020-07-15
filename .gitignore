@@ -1,3 +1,5 @@
 build*/
 apps/*.py
 apps/*.txt
+docs/doxygen/doxyxml/generated/__pycache__/
+docs/doxygen/doxyxml/__pycache__/

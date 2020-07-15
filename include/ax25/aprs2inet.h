@@ -19,38 +19,38 @@
  */
 
 
-#ifndef INCLUDED_AFSK_AX25DECODE_H
-#define INCLUDED_AFSK_AX25DECODE_H
+#ifndef INCLUDED_AFSK_APRS2INET_H
+#define INCLUDED_AFSK_APRS2INET_H
 
-#include <afsk/api.h>
+#include <ax25/api.h>
 #include <gnuradio/block.h>
 
 namespace gr {
-  namespace afsk {
+  namespace ax25 {
 
     /*!
      * \brief <+description of block+>
-     * \ingroup afsk
+     * \ingroup ax25
      *
      */
-    class AFSK_API ax25decode : virtual public block
+    class AFSK_API aprs2inet : virtual public gr::block
     {
      public:
-      typedef boost::shared_ptr<ax25decode> sptr;
+      typedef std::shared_ptr<aprs2inet> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of afsk::ax25decode.
+       * \brief Return a shared_ptr to a new instance of afsk::aprs2inet.
        *
-       * To avoid accidental use of raw pointers, afsk::ax25decode's
+       * To avoid accidental use of raw pointers, afsk::aprs2inet's
        * constructor is in a private implementation
-       * class. afsk::ax25decode::make is the public interface for
+       * class. afsk::aprs2inet::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int sample_rate,int debug_level=5);
+      static sptr make(int sample_rate,int debug_level);
     };
 
   } // namespace afsk
 } // namespace gr
 
-#endif /* INCLUDED_AFSK_AX25DECODE_H */
+#endif /* INCLUDED_AFSK_aprs2inet_H */
 

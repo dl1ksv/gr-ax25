@@ -1,0 +1,23 @@
+id: ax25_ax25decode
+label: ax25decode
+category: '[DL1KSV]/ax25'
+templates:
+  imports: import ax25
+  make: ax25.ax25decode(${sample_rate}, ${debug_level})
+parameters:
+- id: sample_rate
+  label: Sample_rate
+  dtype: int
+- id: debug_level
+  label: Debug_level
+  default: '5'
+  dtype: int
+inputs:
+- label: in
+  domain: stream
+  dtype: float
+outputs:
+- label: out
+  domain: stream
+  dtype: byte
+file_format: 1

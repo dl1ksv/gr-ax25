@@ -12,23 +12,24 @@ ax25decode -  assembles an ax.25 frame from an bitstream and decodes the  frame
 
 1. Dependencies:
 
-- gnuradio
+- gnuradio 3.9 with pybind
 - gr-display ,only if you want to display the decoded text within the flow graph
 
 2. Installation
 
 get the latest code from https://github.com/dl1ksv/gr-ax25
 
-The build process is cmake based. So change to the code directory.
-There
-$mkdir build
-$cd build
-$cmake -DCMAKE_INSTALL_PREFIX=<where gnuradio is installed> ../
-$make
-$su
-$make install
+The build process is cmake based. So change to the code directory.  
+There  
 
-After that you'll find a label AX.25 in grc.
+$mkdir build  
+$cd build  
+$cmake -DCMAKE_INSTALL_PREFIX=<where gnuradio is installed\> ../  
+$make  
+$su  
+$make install  
+
+After that you'll find a label DL1KSV in grc containing the ax25 blocks.
 
 3. Example
 
@@ -41,24 +42,25 @@ The example enables the comparison of different afsk decoder and can serve as ba
 
 Here is a small example output recorded from ISS ( Timestamp is MESZ )
 
-2013-06-23.18:47:37
-AFSK1200: fm YU7RD-0 to APRS-0 via RS0ISS-0 UI  pid=F0
-=4532.92N/01930.10E-Op.Vlado/QTH:Kula {UISS53}
-2013-06-23.18:47:48
-AFSK1200: fm SP1TMN-6 to CQ-0 via RS0ISS-0 UI^ pid=F0
->231647z...THE TALL SHIP, RACES 2013  SZCZECIN
-2013-06-23.18:47:50
-AFSK1200: fm SQ6OCZ-6 to UQPW44-0 via RS0ISS-0 UIv pid=F0
-',W"l .S\]Robert via ISS JO81LC 73 ALL=
-2013-06-23.18:48:29
-AFSK1200: fm OH6MCZ-0 to VSPU56-0 via RS0ISS-0 UIv pid=F0
-'1G,l .`/]Op:Petri QTH:Vaasa KP03uc oh6mcz@sral.fi=
-2013-06-23.18:48:36
-AFSK1200: fm HB9SKA-0 to APRS-0 via RS0ISS-0 UI^ pid=F0
-=4726.07N/00812.00E-Via ISS, 73 de Thomas
-2013-06-23.18:48:40
-AFSK1200: fm DL2YED-6 to APRS-0 via RS0ISS-0 UI  pid=F0
-=5138.83N/00711.95E-73 via ISS de Ralph {UISS53}
+    2013-06-23.18:47:37
+    AFSK1200: fm YU7RD-0 to APRS-0 via RS0ISS-0 UI  pid=F0
+    =4532.92N/01930.10E-Op.Vlado/QTH:Kula {UISS53}
+    2013-06-23.18:47:48
+    AFSK1200: fm SP1TMN-6 to CQ-0 via RS0ISS-0 UI^ pid=F0
+    >231647z...THE TALL SHIP, RACES 2013  SZCZECIN
+    2013-06-23.18:47:50
+    AFSK1200: fm SQ6OCZ-6 to UQPW44-0 via RS0ISS-0 UIv pid=F0
+    ',W"l .S\]Robert via ISS JO81LC 73 ALL=
+    2013-06-23.18:48:29
+    AFSK1200: fm OH6MCZ-0 to VSPU56-0 via RS0ISS-0 UIv pid=F0
+    '1G,l .`/]Op:Petri QTH:Vaasa KP03uc oh6mcz@sral.fi=
+    2013-06-23.18:48:36
+    AFSK1200: fm HB9SKA-0 to APRS-0 via RS0ISS-0 UI^ pid=F0
+    =4726.07N/00812.00E-Via ISS, 73 de Thomas
+    2013-06-23.18:48:40
+    AFSK1200: fm DL2YED-6 to APRS-0 via RS0ISS-0 UI  pid=F0
+    =5138.83N/00711.95E-73 via ISS de Ralph {UISS53}
+
 
 4. To do
 Documentation

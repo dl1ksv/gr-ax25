@@ -21,11 +21,11 @@
 #ifndef INCLUDED_AFSK_AFSK1200_IMPL_H
 #define INCLUDED_AFSK_AFSK1200_IMPL_H
 
-#include <afsk/afsk1200.h>
+#include <ax25/afsk1200.h>
 #include <boost/crc.hpp>
 
 namespace gr {
-  namespace afsk {
+  namespace ax25 {
 
     class afsk1200_impl : public afsk1200
     {
@@ -58,7 +58,7 @@ namespace gr {
 
       int verbose_level;
       boost::crc_optimal<16,   0x1021, 0xFFFF, 0, true, true > crc_ccitt1;
-      char * out;
+      char * d_out;
       int d_numchars;
 
       inline float mac(const float *a, const float *b, unsigned int size)

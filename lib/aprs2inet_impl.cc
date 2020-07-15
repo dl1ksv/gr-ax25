@@ -28,7 +28,7 @@
 #define BAUD       1200
 
 namespace gr {
-  namespace afsk {
+  namespace ax25 {
 
     aprs2inet::sptr
     aprs2inet::make(int samp_rate,int debug_level)
@@ -75,7 +75,9 @@ namespace gr {
       int i;
       unsigned char curbit;
       const float *bit = (const float *) input_items[0];
-      out = (char *) output_items[0];
+      d_out = (char *) output_items[0];
+
+      gr::thread::scoped_lock lock(d_setlock);
 
       d_numchars=0;
       for (i=0;i <noutput_items; i++) {
@@ -122,31 +124,31 @@ namespace gr {
                     len -=2;
                   for(i=7; i< 13;i++) { // Source address
                       if ((hdlc.rxbuf[i] &0xfe) != 0x40)
-                        out[d_numchars++]=hdlc.rxbuf[i]>>1;
+                        d_out[d_numchars++]=hdlc.rxbuf[i]>>1;
                     }
-                  out[d_numchars++]='-';
+                  d_out[d_numchars++]='-';
                   c=(hdlc.rxbuf[13]>>1 ) & 0x0f;
                   if (c < 10)
                     c += 48;
                   else
                     c += 54;
-                  out[d_numchars++]=c;
-                  out[d_numchars++]='>';
+                  d_out[d_numchars++]=c;
+                  d_out[d_numchars++]='>';
 
                   for(i = 0; i < 6; i++) { // Destination
                       if ((hdlc.rxbuf[i] &0xfe) != 0x40)
-                        out[d_numchars++]=hdlc.rxbuf[i]>>1;
+                        d_out[d_numchars++]=hdlc.rxbuf[i]>>1;
                     }
                   c=(hdlc.rxbuf[6]>>1 ) & 0x0f;
                   if ( c > 0)
                     {
-                      out[d_numchars++]='-';
+                      d_out[d_numchars++]='-';
                       if (c < 10)
                         c += 48;
                       else
                         c += 54;
-                      out[d_numchars++]=c;
-                      out[d_numchars++]=':';
+                      d_out[d_numchars++]=c;
+                      d_out[d_numchars++]=':';
                     }
                   else
                   {
@@ -156,29 +158,29 @@ namespace gr {
                     {
                         if( (hdlc.rxbuf[pos]  & 1))
                           {
-                            out[d_numchars++]=':';
+                            d_out[d_numchars++]=':';
                             break;
                           }
-                        out[d_numchars++]=',';
+                        d_out[d_numchars++]=',';
                         for(i=pos;i < pos+6;i++)
                           {
                             if ((hdlc.rxbuf[i] &0xfe) != 0x40)
-                              out[d_numchars++]= hdlc.rxbuf[i] >> 1;
+                              d_out[d_numchars++]= hdlc.rxbuf[i] >> 1;
                           }
                         c=(hdlc.rxbuf[pos+6]>>1 ) & 0x0f;
                         if (c < 10)
                           c += 48;
                         else
                           c += 54;
-                        out[d_numchars++]='-';
-                        out[d_numchars++]=c;
+                        d_out[d_numchars++]='-';
+                        d_out[d_numchars++]=c;
                         pos +=7;
                     }
                    }
                   pos +=2;
                   for(i=pos;i < len;i++)
-                    out[d_numchars++]= hdlc.rxbuf[i];
-                  out[d_numchars++]='\n';
+                    d_out[d_numchars++]= hdlc.rxbuf[i];
+                  d_out[d_numchars++]='\n';
                 }
              }
           hdlc.rxstate = 1;

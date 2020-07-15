@@ -21,12 +21,12 @@
 #ifndef INCLUDED_AFSK_APRS2INET_IMPL_H
 #define INCLUDED_AFSK_APRS2INET_IMPL_H
 
-#include <afsk/aprs2inet.h>
+#include <ax25/aprs2inet.h>
 #include <boost/crc.hpp>
 #include <boost/cstdint.hpp>
 
 namespace gr {
-  namespace afsk {
+  namespace ax25 {
 
     class aprs2inet_impl : public aprs2inet
     {
@@ -52,7 +52,7 @@ namespace gr {
 
       int d_numchars;
 
-      char * out;
+      char * d_out;
 
       int verbose_level;
       boost::crc_optimal<16,   0x1021, 0xFFFF, 0, true, true > crc_ccitt1;
