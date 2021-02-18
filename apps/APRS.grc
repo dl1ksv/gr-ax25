@@ -114,7 +114,7 @@ blocks:
     start: '1'
     step: '1'
     stop: '25'
-    value: '7'
+    value: '20'
     widget: counter
   states:
     bus_sink: false
@@ -234,9 +234,26 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [488, 296]
+    coordinate: [504, 308.0]
     rotation: 0
     state: enabled
+- name: audio_sink_0
+  id: audio_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    device_name: default
+    num_inputs: '1'
+    ok_to_block: 'True'
+    samp_rate: '48000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 436.0]
+    rotation: 0
+    state: true
 - name: ax25_afsk1200_0
   id: ax25_afsk1200
   parameters:
@@ -246,7 +263,7 @@ blocks:
     debug_level: '2'
     maxoutbuf: '0'
     minoutbuf: '0'
-    sample_rate: samp_rate
+    sample_rate: int(samp_rate/4)
   states:
     bus_sink: false
     bus_source: false
@@ -260,10 +277,10 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    debug_level: '5'
+    debug_level: '2'
     maxoutbuf: '0'
     minoutbuf: '0'
-    sample_rate: samp_rate
+    sample_rate: int(samp_rate/4)
   states:
     bus_sink: false
     bus_source: false
@@ -409,7 +426,7 @@ blocks:
     minoutbuf: '0'
     mixergainswitch: '1'
     ppm: '0'
-    unit: '1 '
+    unit: '1000'
   states:
     bus_sink: false
     bus_source: false
@@ -438,7 +455,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1088, 172]
+    coordinate: [976, 164.0]
     rotation: 0
     state: enabled
 - name: qtgui_sink_x_0
@@ -502,7 +519,7 @@ blocks:
     fftsize: '1024'
     freqhalf: 'True'
     grid: 'False'
-    gui_hint: ''
+    gui_hint: Display@0:3,0
     int_max: '10'
     int_min: '-140'
     label1: ''
@@ -528,7 +545,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [692, 337]
+    coordinate: [1336, 224.0]
     rotation: 0
     state: enabled
 - name: show_text_0_0_0
@@ -563,6 +580,7 @@ blocks:
     state: enabled
 
 connections:
+- [analog_quadrature_demod_cf_0_0, '0', audio_sink_0, '0']
 - [analog_quadrature_demod_cf_0_0, '0', band_pass_filter_0_0, '0']
 - [analog_sig_source_x_0, '0', blocks_multiply_xx_0, '1']
 - [ax25_afsk1200_0, '0', show_text_0_0_0_0, '0']
